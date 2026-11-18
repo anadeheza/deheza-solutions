@@ -1,4 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
+import { site } from '../config'
 
 type FormState = {
   name: string
@@ -28,7 +29,7 @@ export function Contact() {
     const body = encodeURIComponent(
       `Nombre: ${form.name}\nEmail: ${form.email}\nEmpresa: ${form.company}\n\n${form.message}`,
     )
-    window.location.href = `mailto:hola@dehezasolutions.com?subject=${subject}&body=${body}`
+    window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`
     setSent(true)
   }
 
@@ -46,8 +47,8 @@ export function Contact() {
           <div className="mt-8 space-y-3 text-sm text-ds-ink">
             <p>
               <span className="font-semibold text-ds-navy">Email:</span>{' '}
-              <a className="text-ds-blue hover:underline" href="mailto:hola@dehezasolutions.com">
-                hola@dehezasolutions.com
+              <a className="text-ds-blue hover:underline" href={`mailto:${site.email}`}>
+                {site.email}
               </a>
             </p>
             <p className="text-ds-muted">Respondemos con una propuesta de conversación, no con un formulario genérico.</p>
@@ -59,7 +60,7 @@ export function Contact() {
             <div className="flex min-h-72 flex-col items-start justify-center">
               <p className="font-display text-2xl font-semibold text-ds-navy">Recibimos tu mensaje</p>
               <p className="mt-3 max-w-md text-ds-muted">
-                Si tu correo no se abrió automáticamente, escribinos a hola@dehezasolutions.com y lo vemos juntos.
+                Si tu correo no se abrió automáticamente, escribinos a {site.email} y lo vemos juntos.
               </p>
               <button
                 type="button"

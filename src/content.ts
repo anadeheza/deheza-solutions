@@ -7,9 +7,24 @@ export const NAV_LINKS = [
 ] as const
 
 export const PILLARS = [
-  { title: 'Optimizamos', image: '/brand/optimizamos.jpg' },
-  { title: 'Transformamos', image: '/brand/transformamos.jpg' },
-  { title: 'Ordenamos', image: '/brand/ordenamos.jpg' },
+  {
+    title: 'Optimizamos',
+    image: '/brand/optimizamos.jpg',
+    description:
+      'Detectamos procesos ineficientes y cuellos de botella para que el trabajo fluya con menos esfuerzo y más resultado.',
+  },
+  {
+    title: 'Transformamos',
+    image: '/brand/transformamos.jpg',
+    description:
+      'Nos involucramos en el funcionamiento real de tu empresa y proponemos soluciones concretas, no recetas genéricas.',
+  },
+  {
+    title: 'Ordenamos',
+    image: '/brand/ordenamos.jpg',
+    description:
+      'Aclaramos roles, comunicación y objetivos para organizar mejor lo que ya tenés.',
+  },
 ] as const
 
 export const PROBLEMS = [

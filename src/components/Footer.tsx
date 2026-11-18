@@ -1,4 +1,6 @@
+import { site } from '../config'
 import { Logo } from './Logo'
+import { SocialLinks } from './SocialLinks'
 
 export function Footer() {
   return (
@@ -10,11 +12,15 @@ export function Footer() {
             Analizamos tu negocio, ordenamos lo que ya tenés y proponemos soluciones reales.
           </p>
         </div>
-        <div className="text-sm text-white/70">
+        <div className="flex flex-col gap-4 text-sm text-white/70 md:items-end">
+          <SocialLinks />
+          <a href={`mailto:${site.email}`} className="hover:text-white">
+            {site.email}
+          </a>
           <a href="#contacto" className="font-semibold text-white hover:text-ds-orange">
             Contáctanos
           </a>
-          <p className="mt-2">© {new Date().getFullYear()} Deheza Solutions</p>
+          <p>© {new Date().getFullYear()} Deheza Solutions</p>
         </div>
       </div>
     </footer>

@@ -1,32 +1,39 @@
-# React + TypeScript + Vite
+# Deheza Solutions
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Sitio web de **Deheza Solutions**, consultora que analiza el funcionamiento real de las empresas para optimizar procesos, ordenar equipos y medir resultados.
 
-Currently, two official plugins are available:
+Es una landing en español (una sola página) con:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Hero y propuesta de valor
+- Enfoque: *optimizamos / transformamos / ordenamos*
+- Diagnóstico y servicios
+- Cómo trabajamos
+- Formulario de contacto (abre el cliente de mail)
 
-## React Compiler
+Stack: **React**, **TypeScript**, **Vite** y **Tailwind CSS**.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Requisitos
 
-## Expanding the Oxlint configuration
+- Node.js 20 o superior
+- npm
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Cómo correrla en local
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Después abrí [http://localhost:5173](http://localhost:5173) en el navegador.
+
+## Otros comandos
+
+```bash
+npm run build    # genera la versión de producción en dist/
+npm run preview  # sirve el build localmente
+npm run lint     # corre el linter
+```
+
+## Contacto
+
+El formulario envía un `mailto` a `hola@dehezasolutions.com`. Si ese mail cambia, hay que actualizarlo en `src/sections/Contact.tsx`.
