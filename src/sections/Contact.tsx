@@ -1,5 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { site } from '../config'
+import { useLanguage } from '../i18n/LanguageContext'
 
 type FormState = {
   name: string
@@ -16,6 +17,7 @@ const EMPTY_FORM: FormState = {
 }
 
 export function Contact() {
+  const { t } = useLanguage()
   const [form, setForm] = useState<FormState>(EMPTY_FORM)
   const [sent, setSent] = useState(false)
 
@@ -25,10 +27,8 @@ export function Contact() {
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const subject = encodeURIComponent(`Consulta de ${form.name} — Deheza Solutions`)
-    const body = encodeURIComponent(
-      `Nombre: ${form.name}\nEmail: ${form.email}\nEmpresa: ${form.company}\n\n${form.message}`,
-    )
+    const subject = encodeURIComponent(t.contact.mailSubject(form.name))
+    const body = encodeURIComponent(t.contact.mailBody(form))
     window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`
     setSent(true)
   }
@@ -37,31 +37,27 @@ export function Contact() {
     <section id="contacto" className="bg-white py-20 sm:py-28">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-ds-orange">Contacto</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-ds-orange">{t.contact.eyebrow}</p>
           <h2 className="mt-3 font-display text-3xl font-bold tracking-[-0.03em] text-ds-navy sm:text-5xl">
-            Contanos qué está pasando en tu empresa
+            {t.contact.title}
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-ds-muted">
-            Si sentís que el negocio podría funcionar mejor — más orden, más claridad, mejores procesos — escribínos. Armamos un primer diagnóstico para ver cómo podemos ayudar.
-          </p>
+          <p className="mt-4 text-lg leading-relaxed text-ds-muted">{t.contact.lead}</p>
           <div className="mt-8 space-y-3 text-sm text-ds-ink">
             <p>
-              <span className="font-semibold text-ds-navy">Email:</span>{' '}
+              <span className="font-semibold text-ds-navy">{t.contact.emailLabel}</span>{' '}
               <a className="text-ds-blue hover:underline" href={`mailto:${site.email}`}>
                 {site.email}
               </a>
             </p>
-            <p className="text-ds-muted">Respondemos con una propuesta de conversación, no con un formulario genérico.</p>
+            <p className="text-ds-muted">{t.contact.note}</p>
           </div>
         </div>
 
         <form onSubmit={onSubmit} className="rounded-3xl bg-ds-fog p-6 sm:p-8">
           {sent ? (
             <div className="flex min-h-72 flex-col items-start justify-center">
-              <p className="font-display text-2xl font-semibold text-ds-navy">Recibimos tu mensaje</p>
-              <p className="mt-3 max-w-md text-ds-muted">
-                Si tu correo no se abrió automáticamente, escribinos a {site.email} y lo vemos juntos.
-              </p>
+              <p className="font-display text-2xl font-semibold text-ds-navy">{t.contact.sentTitle}</p>
+              <p className="mt-3 max-w-md text-ds-muted">{t.contact.sentBody(site.email)}</p>
               <button
                 type="button"
                 className="mt-6 font-semibold text-ds-blue"
@@ -70,12 +66,12 @@ export function Contact() {
                   setForm(EMPTY_FORM)
                 }}
               >
-                Enviar otro mensaje
+                {t.contact.sendAnother}
               </button>
             </div>
           ) : (
             <div className="grid gap-4">
-              <Field label="Nombre" htmlFor="name">
+              <Field label={t.contact.fields.name} htmlFor="name">
                 <input
                   id="name"
                   required
@@ -85,7 +81,7 @@ export function Contact() {
                   autoComplete="name"
                 />
               </Field>
-              <Field label="Email" htmlFor="email">
+              <Field label={t.contact.fields.email} htmlFor="email">
                 <input
                   id="email"
                   type="email"
@@ -96,7 +92,7 @@ export function Contact() {
                   autoComplete="email"
                 />
               </Field>
-              <Field label="Empresa" htmlFor="company">
+              <Field label={t.contact.fields.company} htmlFor="company">
                 <input
                   id="company"
                   value={form.company}
@@ -105,7 +101,7 @@ export function Contact() {
                   autoComplete="organization"
                 />
               </Field>
-              <Field label="¿Qué te gustaría mejorar?" htmlFor="message">
+              <Field label={t.contact.fields.message} htmlFor="message">
                 <textarea
                   id="message"
                   required
@@ -119,7 +115,7 @@ export function Contact() {
                 type="submit"
                 className="mt-2 inline-flex cursor-pointer items-center justify-center rounded-full bg-ds-orange px-6 py-3.5 font-semibold text-white transition hover:brightness-95"
               >
-                Enviar consulta
+                {t.contact.submit}
               </button>
             </div>
           )}

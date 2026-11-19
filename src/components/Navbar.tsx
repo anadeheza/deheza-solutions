@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
-import { NAV_LINKS } from '../content'
+import { useLanguage } from '../i18n/LanguageContext'
+import { LanguageToggle } from './LanguageToggle'
 import { Logo } from './Logo'
 
 export function Navbar() {
+  const { t } = useLanguage()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -32,42 +34,44 @@ export function Navbar() {
         </a>
 
         <nav className="hidden items-center gap-8 text-sm font-medium text-ds-ink/80 lg:flex">
-          {NAV_LINKS.map((link) => (
+          {t.nav.links.map((link) => (
             <a key={link.href} href={link.href} className="transition hover:text-ds-blue">
               {link.label}
             </a>
           ))}
         </nav>
 
-        <a
-          href="#contacto"
-          className="hidden rounded-full bg-ds-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-ds-blue-dark lg:inline-flex"
-        >
-          Hablemos
-        </a>
-
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-ds-navy lg:hidden"
-          aria-expanded={open}
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span className="sr-only">Menú</span>
-          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2">
-            {open ? (
-              <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
-            ) : (
-              <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
-            )}
-          </svg>
-        </button>
+        <div className="flex items-center gap-3">
+          <LanguageToggle />
+          <a
+            href="#contacto"
+            className="hidden rounded-full bg-ds-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-ds-blue-dark lg:inline-flex"
+          >
+            {t.nav.cta}
+          </a>
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-ds-navy lg:hidden"
+            aria-expanded={open}
+            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span className="sr-only">{t.nav.menu}</span>
+            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2">
+              {open ? (
+                <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+              ) : (
+                <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {open ? (
         <div className="border-t border-ds-blue/10 bg-white px-5 py-6 lg:hidden">
           <nav className="flex flex-col gap-4 text-base font-medium text-ds-ink">
-            {NAV_LINKS.map((link) => (
+            {t.nav.links.map((link) => (
               <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
                 {link.label}
               </a>
@@ -77,7 +81,7 @@ export function Navbar() {
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center rounded-full bg-ds-blue px-5 py-3 font-semibold text-white"
             >
-              Hablemos
+              {t.nav.cta}
             </a>
           </nav>
         </div>

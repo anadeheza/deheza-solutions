@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { PillarPanel, PillarsGraphic } from '../components/PillarsGraphic'
-import { PILLARS } from '../content'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export function Pillars() {
+  const { t } = useLanguage()
   const [active, setActive] = useState<string | null>(null)
 
   return (
@@ -11,18 +12,18 @@ export function Pillars() {
         <div className="relative overflow-hidden">
           <PillarsGraphic />
           <div className="absolute inset-0 hidden grid-cols-3 sm:grid">
-            {PILLARS.map((pillar) => {
-              const open = active === pillar.title
+            {t.pillars.map((pillar) => {
+              const open = active === pillar.id
               return (
                 <button
-                  key={pillar.title}
+                  key={pillar.id}
                   type="button"
                   className="group relative cursor-pointer border-0 bg-transparent text-left"
-                  onMouseEnter={() => setActive(pillar.title)}
+                  onMouseEnter={() => setActive(pillar.id)}
                   onMouseLeave={() => setActive(null)}
-                  onFocus={() => setActive(pillar.title)}
+                  onFocus={() => setActive(pillar.id)}
                   onBlur={() => setActive(null)}
-                  onClick={() => setActive(open ? null : pillar.title)}
+                  onClick={() => setActive(open ? null : pillar.id)}
                   aria-expanded={open}
                 >
                   <span className="sr-only">{pillar.title}</span>
@@ -42,23 +43,23 @@ export function Pillars() {
           </div>
 
           <div className="grid sm:hidden">
-            {PILLARS.map((pillar, index) => {
-              const open = active === pillar.title
+            {t.pillars.map((pillar, index) => {
+              const open = active === pillar.id
               return (
                 <button
-                  key={pillar.title}
+                  key={pillar.id}
                   type="button"
                   className={`border-0 bg-white p-0 text-left ${index > 0 ? 'border-t border-ds-blue/10' : ''}`}
-                  onClick={() => setActive(open ? null : pillar.title)}
+                  onClick={() => setActive(open ? null : pillar.id)}
                   aria-expanded={open}
                 >
-                  <PillarPanel title={pillar.title} />
+                  <PillarPanel id={pillar.id} />
                   <div className="px-6 pb-6">
                     <p className="font-display text-lg font-semibold text-ds-navy">{pillar.title}</p>
                     {open ? (
                       <p className="mt-2 text-sm leading-relaxed text-ds-muted">{pillar.description}</p>
                     ) : (
-                      <p className="mt-2 text-sm text-ds-blue">Ver descripción</p>
+                      <p className="mt-2 text-sm text-ds-blue">{t.pillarsUi.seeDescription}</p>
                     )}
                   </div>
                 </button>

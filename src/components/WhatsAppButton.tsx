@@ -1,7 +1,9 @@
 import { whatsappUrl, site } from '../config'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export function WhatsAppButton() {
-  const href = whatsappUrl()
+  const { t } = useLanguage()
+  const href = whatsappUrl(t.whatsapp.message)
   const isReady = Boolean(site.whatsapp)
 
   return (
@@ -9,7 +11,7 @@ export function WhatsAppButton() {
       href={href}
       target={isReady ? '_blank' : undefined}
       rel={isReady ? 'noreferrer' : undefined}
-      aria-label="Escribir por WhatsApp"
+      aria-label={t.whatsapp.label}
       className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-lg shadow-black/20 transition hover:scale-105 hover:bg-[#1ebe5d] sm:bottom-7 sm:right-7"
     >
       <svg viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor" aria-hidden="true">
